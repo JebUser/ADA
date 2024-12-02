@@ -1,0 +1,26 @@
+
+sols = []
+
+def conflict(sol, n, x):
+  ans, i = True, 0
+  while ans and i < n:
+    ans = sol[i] != x and sol[i] != x - n + i and sol[i] != x + n - i
+    i += 1
+  return ans
+
+def phi(arrary,n, N):
+    if n == N:
+       sols.append(arrary)
+    else:
+        x = 0
+        while x < N:
+            if conflict(arrary, n, x):
+                arrary[n] = x
+                phi(arrary, n+1, N)
+            x +=1 
+N = 10
+q = [-1 for _ in range(N)]
+phi(q, 0, N)
+print("# sols: %d" % len(sols))
+for i in range(len(sols)):
+    print(*sols[i])
